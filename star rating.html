@@ -1,0 +1,85 @@
+<html>
+	<head>
+		<title></title>
+		<link href="css/style.css" rel ="stylesheet"></link>
+		<link href="font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+	</head>
+	<body>
+		<h1>Please rate this picture</h1>
+		<div class="star-rating">
+			<br>
+			<img src="https://picsum.photos/450/350/?random" style="margin-top:25px;">
+			<ul class="stars">
+				<li class="star"><i class="fa fa-star" aria-hidden="true"></i></li>
+				<li class="star"><i class="fa fa-star" aria-hidden="true"></i></li>
+				<li class="star"><i class="fa fa-star" aria-hidden="true"></i></li>
+				<li class="star"><i class="fa fa-star" aria-hidden="true"></i></li>
+				<li class="star"><i class="fa fa-star" aria-hidden="true"></i></li>
+			</ul>
+			<p class="output">Ratings</p>
+			<br>
+			<button class="next" onclick="nextPage()">NEXT</button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		const stars = document.querySelectorAll('.star');
+		const output = document.querySelector('.output');
+		
+		for(let x=0;x<stars.length;x++)
+		{
+			stars[x].starValue = x+1;
+			
+			['click','mouseover','mouseout'].forEach(function(e){
+				stars[x].addEventListener(e,showRating);
+			})
+		}
+		
+		function showRating(e)
+		{
+			let type = e.type;
+			//console.log(type);
+			let starValue = this.starValue;
+			if(type === 'click')
+			{
+				if(starValue>=1)
+				{
+					output.innerHTML = "You rated this "+ starValue + " stars.";
+				}
+			}
+			
+			stars.forEach(function(item,index){
+				if(type === 'click')
+				{
+					if(index < starValue)
+					{
+						item.classList.add('orange');
+					}
+					else
+					{
+						item.classList.remove('orange');
+					}
+				}
+				if(type === 'mouseover')
+				{
+					if(index < starValue)
+					{
+						item.classList.add('yellow');
+					}
+					else
+					{
+						item.classList.remove('yellow');
+					}
+				}
+				if(type === 'mouseout')
+				{
+					item.classList.remove('yellow');
+				}
+			})
+		}
+		
+		function nextPage()
+		{
+			window.location.reload();
+		}
+	</script>
+</html>
